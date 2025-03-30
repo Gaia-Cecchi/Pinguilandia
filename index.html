@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pinguilandia</title>
+    <!-- Aggiungiamo il favicon -->
+    <link rel="icon" href="img/penguin.png" type="image/png">
+    <!-- Winky Sans da Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Winky+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dato che i leoni sono soggetti a prendersi il raffreddore...</h1>
+        <p class="message">I pinguini sono venuti a farti visita per tirarti su di morale! ❤️</p>
+        
+        <div class="penguin-container">
+            <!-- Qui ci va l'elemento neve -->
+            <div class="snow-container"></div>
+            
+            <!-- Pinguino principale -->
+            <div id="main-penguin" class="penguin">
+                <img src="img/penguin.png" alt="Pinguino" class="penguin-img">
+            </div>
+        </div>
+        
+        <!-- Pulsanti su due righe -->
+        <div class="controls-row">
+            <button id="danceBtn" class="action-button">Fai ballare<br>i Pinguini</button>
+            <button id="jumpBtn" class="action-button">Fai saltare<br>i Pinguini</button>
+            <button id="snowBtn" class="action-button">Fai nevicare</button>
+            <button id="friendsBtn" class="action-button friends-btn">
+                <span class="minus-sign">−</span>
+                <span class="button-text">Chiama<br>un amico</span>
+            </button>
+            <button id="muteBtn" class="mute-btn">🔊</button>
+        </div>
+        
+        <div class="fun-facts">
+            <h3>Lo sapevi che...</h3>
+            <p id="fact">I pinguini possono riconoscersi tra loro dal verso, anche in una colonia di migliaia di esemplari!</p>
+            <button id="newFactBtn">Nuovo Fatto</button>
+        </div>
+        
+        <div class="healing-message">
+            <h2>Messaggio Speciale</h2>
+            <p>Proprio come i pinguini che resistono alle tempeste antartiche stringendosi insieme, anche tu supererai questo raffreddore!<br>Pensa alla pizza e vedrai che tutto passerà presto! ❤️</p>
+        </div>
+    </div>
+    
+    <!-- Elementi audio per la musica -->
+    <audio id="danceMusic" loop>
+        <source src="sounds/dance-music.mp3" type="audio/mp3">
+    </audio>
+    <audio id="jumpMusic" loop>
+        <source src="sounds/jump-music.mp3" type="audio/mp3">
+    </audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>

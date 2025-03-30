@@ -1,0 +1,17 @@
+/* Stili per i colori (filtri CSS per le immagini) */
+.penguin.color1 .penguin-img { 
+    filter: none; /* Nessun filtro - mantiene il bianco e nero originale */
+    transform: scale(1);
+}
+.penguin.color2 .penguin-img { 
+    filter: hue-rotate(240deg); /* Blu */
+    transform: scale(1);
+}
+.penguin.color3 .penguin-img { 
+    filter: hue-rotate(280deg); /* Viola */
+    transform: scale(1);
+}
+.penguin.color4 .penguin-img { 
+    filter: hue-rotate(160deg); /* Verde */
+    transform: scale(1);
+}

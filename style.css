@@ -1,0 +1,693 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Winky Sans', sans-serif;
+    background: linear-gradient(135deg, #b1e8ff 0%, #c9d6ff 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 90%;
+    padding: 30px;
+    text-align: center;
+}
+
+h1 {
+    color: #555; /* Grigio */
+    margin-bottom: 20px;
+    font-size: 2rem; /* Ridotto da 2.8rem a 2rem */
+    font-weight: 700;
+}
+
+.message {
+    font-size: 2.2rem; /* Aumentato da 1.4rem a 2.2rem */
+    margin-bottom: 30px;
+    color: #1a73e8; /* Blu */
+    font-weight: 700; /* Aumentato da 500 a 700 per renderlo più evidente */
+}
+
+.penguin-container {
+    height: 300px;
+    position: relative;
+    margin: 40px 0;
+    overflow: hidden;
+    border-radius: 15px;
+    background-image: url('img/background.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #add8e6;
+}
+
+/* Stile generale per tutti i pinguini */
+.penguin {
+    position: absolute;
+    bottom: 30px;
+}
+
+/* Regola specifica per il pinguino principale */
+#main-penguin {
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+/* Gli altri pinguini avranno z-index più bassi */
+.penguin:not(#main-penguin) {
+    z-index: 10;
+}
+
+/* Dimensioni specifiche per il pinguino principale */
+#main-penguin .penguin-img {
+    width: 100px;
+    height: auto;
+}
+
+/* Regole per le immagini dei pinguini */
+.penguin-img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Correzioni per pinguini specifici */
+img[src*="penguin3"] {
+    max-height: 100px;
+    transform: scale(0.85);
+}
+
+img[src*="penguin7"] {
+    max-height: 100px;
+    transform: scale(0.8);
+}
+
+/* CORREZIONE ANIMAZIONE DI BALLO - ELIMINATO IL BUG DI SCATTO/INGRANDIMENTO */
+@keyframes dance-fixed {
+    0%, 100% { 
+        transform: rotate(0deg); 
+    }
+    25% { 
+        transform: translateY(-10px) rotate(-5deg); 
+    }
+    50% { 
+        transform: translateY(0) rotate(0deg); 
+    }
+    75% { 
+        transform: translateY(-10px) rotate(5deg); 
+    }
+}
+
+.dancing .penguin-img {
+    animation: dance-fixed 1.2s infinite;
+    transform-origin: center bottom;
+}
+
+/* Aggiornamento dell'animazione di salto */
+@keyframes jump-nuclear {
+    0%, 100% { margin-bottom: 0; }
+    50% { margin-bottom: 50px; }
+}
+
+.jumping .penguin-img {
+    animation: jump-nuclear 0.8s infinite;
+}
+
+/* NUOVI CONTROLLI IN UNICA RIGA */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* LAYOUT PULSANTI IN FILA UNICA */
+.controls-row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 5px;
+}
+
+/* STILE DEI PULSANTI */
+button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    min-width: 120px;
+    max-width: 180px;
+    margin: 0;
+}
+
+.action-button {
+    position: relative;
+    height: auto; /* Rimosso l'altezza fissa per adattarsi al contenuto */
+    min-height: 60px; /* Altezza minima per adattarsi al contenuto */
+    padding: 10px 15px; /* Aumentato il padding */
+    font-family: 'Winky Sans', sans-serif;
+    font-size: 1rem;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    white-space: normal; /* Permette il testo di andare a capo */
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2; /* Riduce lo spazio tra le righe */
+}
+
+/* ANIMAZIONE ONDE PER PULSANTI ATTIVI */
+.active {
+    animation: button-pulse 2s infinite;
+}
+
+.action-button.active::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    animation: wave-animation 2s infinite;
+}
+
+@keyframes button-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+@keyframes wave-animation {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+    }
+}
+
+.active::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: wave-1 2s infinite;
+}
+
+@keyframes wave-1 {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+    }
+}
+
+/* Layout dei controlli */
+.control-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Stili dei pulsanti */
+button {
+    min-width: 150px;
+    padding: 12px 20px;
+    font-family: 'Winky Sans', sans-serif;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+}
+
+.btn-primary {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #2196f3;
+    color: white;
+}
+
+/* NUOVA CORREZIONE PER LA NEVE */
+.snow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    top: -20px;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: falling linear forwards;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes falling {
+    0% {
+        top: -20px;
+        transform: translateX(0) rotate(0deg);
+    }
+    25% { transform: translateX(15px) rotate(45deg); }
+    50% { transform: translateX(-15px) rotate(90deg); }
+    75% { transform: translateX(15px) rotate(135deg); }
+    100% {
+        top: 100%;
+        transform: translateX(0) rotate(180deg);
+    }
+}
+
+/* Stile per i gruppi di controlli */
+.control-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Stili specifici per i diversi gruppi */
+.animation-controls button {
+    background-color: #4caf50;
+}
+
+.animation-controls button:hover {
+    background-color: #388e3c;
+}
+
+.penguin-controls button {
+    background-color: #2196f3;
+}
+
+.penguin-controls button:hover {
+    background-color: #1976d2;
+}
+
+/* Pulsante neve */
+#snowBtn {
+    background-color: #00bcd4;
+}
+
+#snowBtn:hover {
+    background-color: #0097a7;
+}
+
+#snowBtn.active {
+    background-color: #00bcd4;
+    color: white;
+}
+
+/* Effetto che indica che la musica è attiva */
+#danceBtn.music-on,
+#jumpBtn.music-on {
+    border: 3px solid #ff9800;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 152, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0); }
+}
+
+/* Classi di ritardo per i salti */
+.jump-delay-1 {
+    animation-delay: 0.1s !important;
+}
+
+.jump-delay-2 {
+    animation-delay: 0.25s !important;
+}
+
+.jump-delay-3 {
+    animation-delay: 0.4s !important;
+}
+
+.jump-delay-4 {
+    animation-delay: 0.55s !important;
+}
+
+/* Aggiungi un effetto al pulsante di reset colori */
+#resetColorsBtn {
+    background-color: #ff5722;
+}
+
+#resetColorsBtn:hover {
+    background-color: #e64a19;
+}
+
+/* Stile del pulsante mute/unmute */
+.audio-controls {
+    margin-top: 5px;
+}
+
+.mute-btn {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    max-width: 50px !important;
+    border-radius: 50% !important;
+    background-color: #757575; /* Grigio come richiesto */
+    color: white;
+    font-size: 24px;
+    padding: 0 !important;
+    margin: 8px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.mute-btn:hover {
+    transform: scale(1.1);
+    background-color: #616161; /* Grigio più scuro per l'hover */
+}
+
+.mute-btn.muted {
+    background-color: #9e9e9e; /* Grigio più chiaro quando è disattivato */
+    color: #333;
+}
+
+@media (max-width: 480px) {
+    .control-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .control-group button {
+        width: 100%;
+    }
+}
+
+.fun-facts {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 15px;
+}
+
+.fun-facts h3 {
+    color: #1a73e8;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+
+.fun-facts p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 25px; /* Aggiungo più spazio verticale qui */
+}
+
+.healing-message {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #ffe6f2;
+    border-radius: 15px;
+}
+
+.healing-message h2 {
+    color: #e91e63;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.healing-message p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+/* NUOVO CONTROLLO PINGUINI CON + E - */
+.penguin-controls {
+    display: flex;
+    align-items: center;
+    background-color: #7e57c2;
+    border-radius: 25px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.penguin-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    background-color: #7e57c2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* Miglioramento dell'allineamento e sovrapposizione del segno - */
+.minus-sign {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 45px;
+    background-color: #00bcd4; /* Stesso colore del pulsante neve */
+    border-radius: 25px 0 0 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+    font-size: 22px;
+    padding-bottom: 3px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+
+.minus-sign:hover {
+    background-color: #0097a7; /* Stesso hover del pulsante neve */
+}
+
+/* STILE PULSANTE AMICI CON + E - */
+.friends-btn {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 0 45px !important; /* Padding-left maggiore per spostare il testo a destra */
+    position: relative; /* Per posizionamento del segno - */
+    overflow: visible;
+    justify-content: center;
+    text-align: center;
+}
+
+.button-text {
+    white-space: normal; /* Permette testo su più righe */
+    text-align: center;
+    padding-left: 15px; /* Spostamento ulteriore verso destra */
+    line-height: 1.2; /* Riduce lo spazio tra le righe */
+    font-size: 0.9rem; /* Riduce leggermente la dimensione del testo */
+}
+
+/* EFFETTO RIMOZIONE PINGUINO */
+.penguin-removing {
+    animation: fadeOut 0.8s forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.5) translateY(20px); }
+}
+
+/* MIGLIORAMENTI RESPONSIVE */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    .message {
+        font-size: 1.8rem;
+    }
+    
+    .controls-row {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .action-button {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 0;
+        height: auto;
+        padding: 10px 15px;
+    }
+    
+    .mute-btn {
+        order: -1;
+        margin: 0 auto 10px !important;
+    }
+    
+    .fun-facts h3 {
+        font-size: 1.4rem;
+    }
+    
+    .fun-facts p {
+        font-size: 1.1rem;
+    }
+    
+    .healing-message h2 {
+        font-size: 1.5rem;
+    }
+    
+    .healing-message p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.4rem;
+    }
+    
+    .message {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+    
+    .penguin-container {
+        height: 250px;
+        margin: 20px 0;
+    }
+    
+    .action-button {
+        flex: 1 1 100%;
+        font-size: 0.9rem;
+    }
+    
+    #main-penguin .penguin-img {
+        width: 80px;
+    }
+    
+    .fun-facts, .healing-message {
+        padding: 15px;
+    }
+    
+    #newFactBtn {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Migliora la responsività dei fiocchi di neve */
+@media (max-width: 768px) {
+    .snowflake {
+        width: 4px !important;
+        height: 4px !important;
+    }
+}
+
+/* Fissa il problema dei pulsanti nei dispositivi touch */
+@media (hover: none) {
+    .action-button:active {
+        background-color: #0066b8;
+    }
+    
+    .minus-sign:active {
+        background-color: #0097a7;
+    }
+    
+    .mute-btn:active {
+        transform: scale(1.1);
+    }
+}
+
+/* Migliora la gestione dell'overflow del testo nei dispositivi piccoli */
+@media (max-width: 320px) {
+    h1 {
+        font-size: 1.2rem;
+        word-wrap: break-word;
+    }
+    
+    .message {
+        font-size: 1.4rem;
+    }
+    
+    .action-button {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    
+    .button-text {
+        font-size: 0.8rem;
+    }
+}
